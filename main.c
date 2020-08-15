@@ -30,7 +30,7 @@ char* getWord(FILE *file, int number)
       return word;
     }
   }
-
+  free(word);
   return "";
 }
 
@@ -60,11 +60,13 @@ int main (int argc, char *argv [])
 
   for (int i = 0; i < getBlessingSize(offering); i++)
   {
-    strcat(wordsOfGod, getWord(sacredText, rand() % numberOfWordsInFile));
+    char *word = getWord(sacredText, rand() % numberOfWordsInFile);
+    strcat(wordsOfGod, word);
+    free(word);
   }
 
   fclose(sacredText);
-
   printf("GOD SAYS:\n %s\n", wordsOfGod);
 
+  return 0;
 }
